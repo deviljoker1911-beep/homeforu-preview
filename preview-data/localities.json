@@ -1,0 +1,6 @@
+[
+{"type":"city","label":"Noida","secondary":"India","slug":"noida","cityId":"6acd9cd48a3e6994ebd6ecf0","locationId":"6acd9cd48a3e6994ebd6ecf0","aliases":[],"keys":["noida"],"activeListings":2},
+{"type":"city","label":"Gurugram","secondary":"India","slug":"gurugram","cityId":"6acd9cd48a3e6994ebd6ecf8","locationId":"6acd9cd48a3e6994ebd6ecf8","aliases":["Gurgaon","Gurugam"],"keys":["gurugram","gurgaon","gurugam"],"activeListings":2},
+{"type":"city","label":"Mumbai","secondary":"India","slug":"mumbai","cityId":"6acd9cd48a3e6994ebd6ed00","locationId":"6acd9cd48a3e6994ebd6ed00","aliases":["Bombay"],"keys":["mumbai","bombay"],"activeListings":3},
+{"type":"city","label":"Bengaluru","secondary":"India","slug":"bengaluru","cityId":"6acd9cd48a3e6994ebd6ed08","locationId":"6acd9cd48a3e6994ebd6ed08","aliases":["Bangalore","Banglore","Bengalooru","Bangaluru"],"keys":["bengaluru","bangalore","banglore","bengalooru","bangaluru"],"activeListings":2}
+]

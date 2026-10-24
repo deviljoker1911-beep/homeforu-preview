@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <!-- viewport-fit=cover lets the app draw under the notch (safe-area insets); no maximum-scale: pinch zoom stays available -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>HomeforU</title>
+    <!-- the public site owns the canonical pages: this app is never indexed -->
+    <meta name="robots" content="noindex" />
+    <meta name="color-scheme" content="dark light" />
+    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#F2F2F7" media="(prefers-color-scheme: light)" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="HomeforU" />
+    <link rel="manifest" href="/homeforu-preview/manifest.webmanifest" />
+    <link rel="icon" href="/homeforu-preview/favicon.ico" sizes="any" />
+    <link rel="apple-touch-icon" href="/homeforu-preview/icons/apple-touch-icon.png" />
+    <!-- The react-native-web recommended style reset: https://necolas.github.io/react-native-web/docs/setup/#root-element -->
+    <style id="expo-reset">
+      /* These styles make the body full-height */
+      html,
+      body {
+        height: 100%;
+      }
+      /* These styles disable body scrolling if you are using <ScrollView> */
+      body {
+        overflow: hidden;
+      }
+      /* These styles make the root element full-height */
+      #root {
+        display: flex;
+        height: 100%;
+        flex: 1;
+      }
+    </style>
+    <!--
+      Before any JavaScript: the page background of the chosen mode (no white flash), the focus ring of the elements react-native-web
+      renders as div[tabindex], the two Inter files (the Latin letters and the rupee sign) for devices without the system font.
+      The colours are the bg / ink / focus tokens of design/tokens.json (a test pins them).
+    -->
+    <style id="hfu-shell">
+      :root {
+        --hfu-pre-bg: #000000;
+        --hfu-pre-fg: #FFFFFF;
+        --hfu-pre-focus: #C6FF3D;
+        --font-inter: 'HFU Inter';
+        --font-inter-rupee: 'HFU Inter Rupee';
+      }
+      @media (prefers-color-scheme: light) {
+        :root:not([data-hfu-theme="dark"]) { --hfu-pre-bg: #EDEFF5; --hfu-pre-fg: #000000; --hfu-pre-focus: #000000; }
+        :root:not([data-hfu-theme="dark"]):not([data-hfu-glass="on"]) { --hfu-pre-bg: #F2F2F7; }
+      }
+      :root[data-hfu-theme="dark"] { --hfu-pre-bg: #000000; --hfu-pre-fg: #FFFFFF; --hfu-pre-focus: #C6FF3D; }
+      :root[data-hfu-theme="light"] { --hfu-pre-bg: #EDEFF5; --hfu-pre-fg: #000000; --hfu-pre-focus: #000000; }
+      :root[data-hfu-theme="light"]:not([data-hfu-glass="on"]) { --hfu-pre-bg: #F2F2F7; }
+      html, body { background: var(--hfu-pre-bg); }
+      body { margin: 0; color: var(--hfu-pre-fg); -webkit-text-size-adjust: 100%; }
+      [tabindex]:focus-visible { outline: 2px solid var(--hfu-pre-focus); outline-offset: 2px; }
+      noscript { display: block; padding: 24px; font: 16px/1.4 -apple-system, BlinkMacSystemFont, system-ui, sans-serif; }
+      @font-face {
+        font-family: 'HFU Inter';
+        font-style: normal;
+        font-weight: 100 900;
+        font-display: swap;
+        src: url(/homeforu-preview/fonts/inter-latin-wght-normal.woff2) format('woff2');
+      }
+      @font-face {
+        font-family: 'HFU Inter Rupee';
+        font-style: normal;
+        font-weight: 100 900;
+        font-display: swap;
+        src: url(/homeforu-preview/fonts/inter-rupee-wght-normal.woff2) format('woff2');
+        unicode-range: U+20B9;
+      }
+    </style>
+    <!--
+      The appearance script: applies the saved choice before the first paint. Keys and attributes are the ones of the site and of the
+      native app: hfu-theme (dark | light; absent = follow the OS), hfu-glass (on | off; absent = ON in this app), hfu-motion (1 to 10).
+      Glass turns itself off when the OS asks for less transparency or more contrast. It is constant text (a test pins it), so its
+      SHA-256 can go into a future script-src.
+    -->
+    <script id="hfu-appearance">
+      (function () {
+        function read(key) { try { return localStorage.getItem(key) } catch (e) { return null } }
+        try {
+          var d = document.documentElement, t = read('hfu-theme'), g = read('hfu-glass'), m = read('hfu-motion')
+          if (t === 'dark' || t === 'light') {
+            d.setAttribute('data-hfu-theme', t)
+            var c = document.querySelectorAll('meta[name="theme-color"]'), v = t === 'dark' ? '#000000' : '#F2F2F7'
+            for (var i = 0; i < c.length; i++) { c[i].setAttribute('content', v); c[i].removeAttribute('media') }
+          }
+          var less = matchMedia('(prefers-reduced-transparency: reduce)').matches || matchMedia('(prefers-contrast: more)').matches
+          if (g !== 'off' && !less) d.setAttribute('data-hfu-glass', 'on')
+          if (/^([1-9]|10)$/.test(m || '')) d.setAttribute('data-hfu-motion', m)
+        } catch (e) {}
+      })()
+    </script>
+  <meta name="theme-color" content="#000000">
+</head>
+
+  <body>
+    <noscript>HomeforU needs JavaScript to run. HomeforU a besoin de JavaScript pour fonctionner.</noscript>
+    <!-- The root element of the app. -->
+    <div id="root"></div>
+  <script src="/homeforu-preview/_expo/static/js/web/entry-121ee45632a70ee8e3a2762d8a109a60.js" defer></script>
+</body>
+</html>
