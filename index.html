@@ -15,8 +15,27 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="HomeforU" />
     <link rel="manifest" href="/homeforu-preview/manifest.webmanifest" />
+    <!-- the Latin Inter file is asked for by the first screen: starting it with the page (instead of after the 800 KB script has run) takes it off the critical path (PERF-01) -->
+    <link rel="preload" href="/homeforu-preview/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <!-- the logo as an SVG (sharp at any tab size), then the .ico for the browsers that do not take one; both are made by scripts/generate-brand-assets.mjs -->
+    <link rel="icon" href="/homeforu-preview/icons/mark.svg" type="image/svg+xml" />
     <link rel="icon" href="/homeforu-preview/favicon.ico" sizes="any" />
     <link rel="apple-touch-icon" href="/homeforu-preview/icons/apple-touch-icon.png" />
+    <!--
+      The preview of a shared link (a chat, a mail). The image address is a path on this origin: a crawler that wants an absolute address will not show it.
+      The page itself stays out of search engines (the robots tag above); the public site owns the canonical pages.
+    -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="HomeforU" />
+    <meta property="og:title" content="HomeforU" />
+    <meta property="og:description" content="Homes to buy and rent in India." />
+    <meta property="og:image" content="/homeforu-preview/icons/og-image.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="The HomeforU logo: a violet tile with a white house and a gold U." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="/homeforu-preview/icons/og-image.png" />
     <!-- The react-native-web recommended style reset: https://necolas.github.io/react-native-web/docs/setup/#root-element -->
     <style id="expo-reset">
       /* These styles make the body full-height */
@@ -58,7 +77,29 @@
       html, body { background: var(--hfu-pre-bg); }
       body { margin: 0; color: var(--hfu-pre-fg); -webkit-text-size-adjust: 100%; }
       [tabindex]:focus-visible { outline: 2px solid var(--hfu-pre-focus); outline-offset: 2px; }
+      /* a row of a group that clips its content (ListGroup): a ring outside would show as two stray lines, so it is drawn inside */
+      [tabindex][data-hfu-focus-inset]:focus-visible { outline-offset: -2px; }
+      /* Light: the ring is black, which nearly disappears on a dark photograph or scrim (1.5:1). A white band next to it makes the ring two-tone, so it reads on a light page and on a dark photo (A11Y-14).
+         The band is the box-shadow of the focused element (important: react-native-web writes box-shadow inline), outside the element, or inside for a row that clips. Dark keeps its lime ring alone. */
+      @media (prefers-color-scheme: light) {
+        :root:not([data-hfu-theme="dark"]) [tabindex]:focus-visible { box-shadow: 0 0 0 2px #FFFFFF !important; }
+        :root:not([data-hfu-theme="dark"]) [tabindex][data-hfu-focus-inset]:focus-visible { box-shadow: inset 0 0 0 4px #FFFFFF !important; }
+      }
+      :root[data-hfu-theme="light"] [tabindex]:focus-visible { box-shadow: 0 0 0 2px #FFFFFF !important; }
+      :root[data-hfu-theme="light"] [tabindex][data-hfu-focus-inset]:focus-visible { box-shadow: inset 0 0 0 4px #FFFFFF !important; }
+      /* react-native-web has no hitSlop: a small control (PressableScale, Toggle, Checkbox, Segmented) gets an invisible target of at least 44 x 44 around its centre.
+         z-index -1 puts it UNDER what is inside the control (every react-native-web view is its own stacking context): drawn on top, as a plain absolute box, it took the click
+         of a heart that sits on a card and left the heart dead. */
+      [data-hfu-hit]::after { content: ''; position: absolute; z-index: -1; top: 50%; left: 50%; width: 100%; height: 100%; min-width: 44px; min-height: 44px; transform: translate(-50%, -50%); }
       noscript { display: block; padding: 24px; font: 16px/1.4 -apple-system, BlinkMacSystemFont, system-ui, sans-serif; }
+      /* The launch screen (PERF-01): the first paint no longer waits for the 800 KB script. It covers the empty root with the logo on the page colour; features/shell/launchShell.ts
+         fades it out when the app has its first screen. If the script never runs it gives way by itself after 30 s, so a failed load is not an endless logo. */
+      #hfu-launch { position: fixed; top: 0; right: 0; bottom: 0; left: 0; z-index: 2147483000; display: flex; align-items: center; justify-content: center; background: var(--hfu-pre-bg); transition: opacity 250ms ease; animation: hfu-launch-out 200ms ease 30s forwards; }
+      #hfu-launch[data-done] { opacity: 0; pointer-events: none; }
+      #hfu-launch img { width: 88px; height: 88px; animation: hfu-launch-pulse 1600ms ease-in-out infinite; }
+      @keyframes hfu-launch-pulse { 0%, 100% { opacity: .7; transform: scale(.97); } 50% { opacity: 1; transform: scale(1); } }
+      @keyframes hfu-launch-out { to { opacity: 0; visibility: hidden; } }
+      @media (prefers-reduced-motion: reduce) { #hfu-launch { transition: none; } #hfu-launch img { animation: none; } }
       @font-face {
         font-family: 'HFU Inter';
         font-style: normal;
@@ -101,9 +142,11 @@
 </head>
 
   <body>
-    <noscript>HomeforU needs JavaScript to run. HomeforU a besoin de JavaScript pour fonctionner.</noscript>
+    <!-- shown until the app has its first screen (features/shell/launchShell.ts removes it); decorative, so it is hidden from assistive technology -->
+    <div id="hfu-launch" aria-hidden="true"><img src="/homeforu-preview/icons/mark.svg" width="88" height="88" alt="" /></div>
+    <noscript><style>#hfu-launch { display: none; }</style>HomeforU needs JavaScript to run. HomeforU a besoin de JavaScript pour fonctionner.</noscript>
     <!-- The root element of the app. -->
     <div id="root"></div>
-  <script src="/homeforu-preview/_expo/static/js/web/entry-121ee45632a70ee8e3a2762d8a109a60.js" defer></script>
+  <script src="/homeforu-preview/_expo/static/js/web/entry-c7b66b28695c2f8880005ce9a7987900.js" defer></script>
 </body>
 </html>
