@@ -4,13 +4,13 @@
   "trailingSlash": false,
   "rewrites": [
     {
-      "source": "/homeforu-preview/:path((?!.*\\.[A-Za-z0-9]+$).*)",
-      "destination": "/homeforu-preview/index.html"
+      "source": "/:path((?!.*\\.[A-Za-z0-9]+$).*)",
+      "destination": "/index.html"
     }
   ],
   "headers": [
     {
-      "source": "/homeforu-preview/(.*)",
+      "source": "/(.*)",
       "headers": [
         {
           "key": "Content-Security-Policy",
@@ -35,7 +35,7 @@
       ]
     },
     {
-      "source": "/homeforu-preview/_expo/(.*)",
+      "source": "/_expo/(.*)",
       "headers": [
         {
           "key": "Cache-Control",
@@ -44,7 +44,7 @@
       ]
     },
     {
-      "source": "/homeforu-preview/assets/(.*)",
+      "source": "/assets/(.*)",
       "headers": [
         {
           "key": "Cache-Control",
@@ -53,7 +53,7 @@
       ]
     },
     {
-      "source": "/homeforu-preview/cdn/(.*)",
+      "source": "/cdn/(.*)",
       "headers": [
         {
           "key": "Cache-Control",
@@ -62,7 +62,7 @@
       ]
     },
     {
-      "source": "/homeforu-preview/preview-data/(.*)",
+      "source": "/preview-data/(.*)",
       "headers": [
         {
           "key": "Cache-Control",
@@ -71,7 +71,7 @@
       ]
     },
     {
-      "source": "/homeforu-preview/embed/(.*)",
+      "source": "/embed/(.*)",
       "headers": [
         {
           "key": "Cache-Control",
@@ -80,7 +80,7 @@
       ]
     },
     {
-      "source": "/homeforu-preview/index.html",
+      "source": "/index.html",
       "headers": [
         {
           "key": "Cache-Control",

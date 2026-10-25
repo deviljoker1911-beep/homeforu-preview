@@ -14,13 +14,13 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="HomeforU" />
-    <link rel="manifest" href="/homeforu-preview/manifest.webmanifest" />
+    <link rel="manifest" href="/manifest.webmanifest" />
     <!-- the Latin Inter file is asked for by the first screen: starting it with the page (instead of after the 800 KB script has run) takes it off the critical path (PERF-01) -->
-    <link rel="preload" href="/homeforu-preview/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
     <!-- the logo as an SVG (sharp at any tab size), then the .ico for the browsers that do not take one; both are made by scripts/generate-brand-assets.mjs -->
-    <link rel="icon" href="/homeforu-preview/icons/mark.svg" type="image/svg+xml" />
-    <link rel="icon" href="/homeforu-preview/favicon.ico" sizes="any" />
-    <link rel="apple-touch-icon" href="/homeforu-preview/icons/apple-touch-icon.png" />
+    <link rel="icon" href="/icons/mark.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
     <!--
       The preview of a shared link (a chat, a mail). The image address is a path on this origin: a crawler that wants an absolute address will not show it.
       The page itself stays out of search engines (the robots tag above); the public site owns the canonical pages.
@@ -29,13 +29,13 @@
     <meta property="og:site_name" content="HomeforU" />
     <meta property="og:title" content="HomeforU" />
     <meta property="og:description" content="Homes to buy and rent in India." />
-    <meta property="og:image" content="/homeforu-preview/icons/og-image.png" />
+    <meta property="og:image" content="/icons/og-image.png" />
     <meta property="og:image:type" content="image/png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="The HomeforU logo: a violet tile with a white house and a gold U." />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:image" content="/homeforu-preview/icons/og-image.png" />
+    <meta name="twitter:image" content="/icons/og-image.png" />
     <!-- The react-native-web recommended style reset: https://necolas.github.io/react-native-web/docs/setup/#root-element -->
     <style id="expo-reset">
       /* These styles make the body full-height */
@@ -105,14 +105,14 @@
         font-style: normal;
         font-weight: 100 900;
         font-display: swap;
-        src: url(/homeforu-preview/fonts/inter-latin-wght-normal.woff2) format('woff2');
+        src: url(/fonts/inter-latin-wght-normal.woff2) format('woff2');
       }
       @font-face {
         font-family: 'HFU Inter Rupee';
         font-style: normal;
         font-weight: 100 900;
         font-display: swap;
-        src: url(/homeforu-preview/fonts/inter-rupee-wght-normal.woff2) format('woff2');
+        src: url(/fonts/inter-rupee-wght-normal.woff2) format('woff2');
         unicode-range: U+20B9;
       }
     </style>
@@ -143,10 +143,10 @@
 
   <body>
     <!-- shown until the app has its first screen (features/shell/launchShell.ts removes it); decorative, so it is hidden from assistive technology -->
-    <div id="hfu-launch" aria-hidden="true"><img src="/homeforu-preview/icons/mark.svg" width="88" height="88" alt="" /></div>
+    <div id="hfu-launch" aria-hidden="true"><img src="/icons/mark.svg" width="88" height="88" alt="" /></div>
     <noscript><style>#hfu-launch { display: none; }</style>HomeforU needs JavaScript to run. HomeforU a besoin de JavaScript pour fonctionner.</noscript>
     <!-- The root element of the app. -->
     <div id="root"></div>
-  <script src="/homeforu-preview/_expo/static/js/web/entry-c7b66b28695c2f8880005ce9a7987900.js" defer></script>
+  <script src="/_expo/static/js/web/entry-91c5d60163e000e0c1ad7930b4dcaea7.js" defer></script>
 </body>
 </html>

@@ -1,16 +1,16 @@
-/homeforu-preview/*
+/*
   Content-Security-Policy: default-src 'self'; script-src 'self' 'sha256-vapOIjPoeNRjDnr7Aa1D/GOHfOlSSq+1Xj7Q8x7PxgU='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; frame-src 'self'; worker-src 'self' blob:; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'
   X-Content-Type-Options: nosniff
   Referrer-Policy: no-referrer
   X-Robots-Tag: noindex, nofollow
   Permissions-Policy: camera=(), microphone=(), payment=(), geolocation=(self)
-/homeforu-preview/_expo/*
+/_expo/*
   Cache-Control: public, max-age=31536000, immutable
-/homeforu-preview/assets/*
+/assets/*
   Cache-Control: public, max-age=31536000, immutable
-/homeforu-preview/cdn/*
+/cdn/*
   Cache-Control: public, max-age=86400
-/homeforu-preview/preview-data/*
+/preview-data/*
   Cache-Control: public, max-age=0, must-revalidate
-/homeforu-preview/index.html
+/index.html
   Cache-Control: no-cache
